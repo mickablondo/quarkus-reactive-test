@@ -9,6 +9,7 @@ It demonstrates how to use **Hibernate Reactive with Panache**, **PostgreSQL**, 
 
 - Reactive REST endpoints using `quarkus-rest`
 - Non-blocking PostgreSQL access with `quarkus-hibernate-reactive-panache`
+- Hot reload and live coding in dev mode
 - Testcontainers integration (for test/dev environments)
 - Gradle build system
 
