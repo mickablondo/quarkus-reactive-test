@@ -23,6 +23,12 @@ public class PersonResource {
         return personService.get();
     }
 
+    @GET
+    @Path("/count")
+    public Uni<Long> count() {
+        return Person.count();
+    }
+
     @POST
     public Uni<Person> create(Person person) {
         return personService.create(person);
