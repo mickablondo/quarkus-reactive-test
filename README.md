@@ -1,12 +1,33 @@
 # 🚧 Work In Progress 🚧
 
-# quarkus-reactive-test
+# Quarkus Reactive Test
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This is a reactive REST API project built with [Quarkus](https://quarkus.io/), the Supersonic Subatomic Java framework.  
+It demonstrates how to use **Hibernate Reactive with Panache**, **PostgreSQL**, and **Testcontainers** for modern, non-blocking backend development.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## ⚙️ Features
 
-## Running the application in dev mode
+- Reactive REST endpoints using `quarkus-rest`
+- Non-blocking PostgreSQL access with `quarkus-hibernate-reactive-panache`
+- Testcontainers integration (for test/dev environments)
+- Gradle build system
+
+## 🚀 Running the Application in Dev Mode
+
+### 1. Start the PostgreSQL container
+
+```bash
+docker run --name pg-quarkus \
+  -e POSTGRES_DB=demo \
+  -e POSTGRES_USER=demo \
+  -e POSTGRES_PASSWORD=demo \
+  -p 5432:5432 \
+  -d postgres:15-alpine
+```
+
+Make sure Docker Desktop is running.
+
+### 2. Launch the application
 
 You can run your application in dev mode that enables live coding using:
 
@@ -14,51 +35,19 @@ You can run your application in dev mode that enables live coding using:
 ./gradlew quarkusDev
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.  
 
-## Packaging and running the application
+**_Database initialization_**  
+When the application starts, it will automatically create the necessary tables in your PostgreSQL database:
+![img.png](images/db_create.png)
 
-The application can be packaged using:
+## 📦 Technologies
 
-```shell script
-./gradlew build
-```
-
-It produces the `quarkus-run.jar` file in the `build/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `build/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar build/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./gradlew build -Dquarkus.package.jar.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar build/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./gradlew build -Dquarkus.native.enabled=true
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./gradlew build -Dquarkus.native.enabled=true -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./build/quarkus-reactive-test-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/gradle-tooling>.
-
-## Provided Code
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+- Java 21
+- Quarkus
+  - quarkus-rest
+  - quarkus-hibernate-reactive-panache
+  - quarkus-reactive-pg-client
+- PostgreSQL
+- Testcontainers
+- Gradle
