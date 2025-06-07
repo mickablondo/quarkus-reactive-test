@@ -28,4 +28,13 @@ public class PersonService {
     public Uni<Person> create(Person person) {
         return person.persist().replaceWith(person);
     }
+
+    /**
+     * Counts the total number of Person entities in the database.
+     *
+     * @return a Uni that emits the count of Person entities
+     */
+    public Uni<Long> countPersons() {
+        return Person.count();
+    }
 }

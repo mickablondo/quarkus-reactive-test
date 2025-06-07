@@ -4,7 +4,6 @@ import dev.mikablondo.model.Person;
 import dev.mikablondo.service.PersonService;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 
@@ -26,7 +25,7 @@ public class PersonResource {
     @GET
     @Path("/count")
     public Uni<Long> count() {
-        return Person.count();
+        return personService.countPersons();
     }
 
     @POST
