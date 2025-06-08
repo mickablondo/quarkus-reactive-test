@@ -1,14 +1,21 @@
 package dev.mikablondo.service;
 
 import dev.mikablondo.model.Person;
+import dev.mikablondo.repository.PersonRepository;
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
 
 @ApplicationScoped
 public class PersonService {
+
+    @Inject
+    PersonRepository personRepository;
+
     /**
      * Retrieves all Person entities from the database.
      *
@@ -36,5 +43,14 @@ public class PersonService {
      */
     public Uni<Long> countPersons() {
         return Person.count();
+    }
+
+    /**
+     * Streams all Person entities from the database.
+     *
+     * @return a Multi that emits Person entities
+     */
+    public Multi<Person> stream() {
+        return personRepository.
     }
 }

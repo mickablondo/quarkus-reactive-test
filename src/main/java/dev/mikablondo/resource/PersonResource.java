@@ -2,6 +2,7 @@ package dev.mikablondo.resource;
 
 import dev.mikablondo.model.Person;
 import dev.mikablondo.service.PersonService;
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -20,6 +21,12 @@ public class PersonResource {
     @GET
     public Uni<List<Person>> list() {
         return personService.get();
+    }
+
+    @GET
+    @Path("/stream")
+    public Multi<Person> stream() {
+        return personService.stream();
     }
 
     @GET
