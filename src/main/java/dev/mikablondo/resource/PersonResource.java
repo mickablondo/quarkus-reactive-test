@@ -24,6 +24,7 @@ public class PersonResource {
     }
 
     @GET
+    @Produces("application/x-ndjson")
     @Path("/stream")
     public Multi<Person> stream() {
         return personService.stream();
