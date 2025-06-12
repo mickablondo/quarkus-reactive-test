@@ -13,7 +13,13 @@ public class PersonRepository {
     @Inject
     Pool client;
 
+    /**
+     * Streams all Person entities from the database using a Vert.x SQL Client Pool.
+     *
+     * @return a Multi that emits Person entities
+     */
     public Multi<Person> streamAll() {
+        // Convert the Mutiny Pool to a classic Vert.x SQL Client Pool
         io.vertx.sqlclient.Pool classicClient = client.getDelegate();
 
         return Multi.createFrom().emitter(emitter -> {
@@ -24,6 +30,7 @@ public class PersonRepository {
                 }
                 SqlConnection conn = connResult.result();
 
+                // Prepare the SQL query to select all persons
                 conn.prepare("SELECT id, firstname, lastname FROM Person").onComplete(pqResult -> {
                     if (pqResult.failed()) {
                         emitter.fail(pqResult.cause());
@@ -32,6 +39,7 @@ public class PersonRepository {
                     }
                     PreparedStatement preparedQuery = pqResult.result();
 
+                    // Create a stream to handle the results (batch size is set to 50)
                     RowStream<Row> stream = preparedQuery.createStream(50, Tuple.tuple());
 
                     stream.handler(row -> {
@@ -41,6 +49,7 @@ public class PersonRepository {
                                 .lastname(row.getString("lastname"))
                                 .build();
 
+                        // Emit the person object to the Multi stream
                         emitter.emit(person);
                     });
                     stream.endHandler(v -> {
