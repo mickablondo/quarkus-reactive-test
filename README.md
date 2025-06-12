@@ -12,6 +12,7 @@ It demonstrates how to use **Hibernate Reactive with Panache**, **PostgreSQL**, 
 - Hot reload and live coding in dev mode
 - Testcontainers integration (for test/dev environments)
 - Gradle build system
+- **True end-to-end streaming API endpoint (`/stream`) delivering newline-delimited JSON (NDJSON), allowing fast and easy processing of large amounts of data as it arrives**
 
 ## 🚀 Running the Application in Dev Mode
 
