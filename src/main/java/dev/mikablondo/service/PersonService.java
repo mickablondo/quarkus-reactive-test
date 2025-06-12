@@ -51,6 +51,6 @@ public class PersonService {
      * @return a Multi that emits Person entities
      */
     public Multi<Person> stream() {
-        return personRepository.
+        return personRepository.streamAll();
     }
 }
