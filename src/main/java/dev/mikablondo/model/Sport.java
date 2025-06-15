@@ -1,10 +1,7 @@
 package dev.mikablondo.model;
 
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -21,4 +18,8 @@ public class Sport extends PanacheEntityBase {
 
     public String name;
     public String rules;
+
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    public Person person;
 }
