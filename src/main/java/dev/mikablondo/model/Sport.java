@@ -4,6 +4,9 @@ import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -19,7 +22,7 @@ public class Sport extends PanacheEntityBase {
     public String name;
     public String rules;
 
-    @ManyToOne
-    @JoinColumn(name = "person_id")
-    public Person person;
+    @ManyToMany(mappedBy = "sports")
+    @Builder.Default
+    public Set<Person> persons = new HashSet<>();
 }
