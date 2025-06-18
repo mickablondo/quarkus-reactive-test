@@ -13,21 +13,16 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Person extends PanacheEntityBase {
+public class Sport extends PanacheEntityBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    public String firstname;
-    public String lastname;
+    public String name;
+    public String rules;
 
-    @ManyToMany
-    @JoinTable(
-            name = "person_sport",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "sport_id")
-    )
+    @ManyToMany(mappedBy = "sports")
     @Builder.Default
-    public Set<Sport> sports = new HashSet<>();
+    public Set<Person> persons = new HashSet<>();
 }
