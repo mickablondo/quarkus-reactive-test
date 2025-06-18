@@ -82,19 +82,22 @@ public class PersonService {
     public Uni<Person> associateSportToPerson(Long personId, Long sportId) {
         return Person.<Person>findById(personId)
                 .onItem().ifNull().failWith(() -> new RuntimeException("Person not found"))
-                .flatMap(person -> Mutiny.fetch(person.getSports()).replaceWith(person)
-                        .flatMap(p -> Sport.<Sport>findById(sportId)
+                .flatMap(person -> Mutiny.fetch(person.getSports()).replaceWith(person))
+                .flatMap(person ->
+                        Sport.<Sport>findById(sportId)
                                 .onItem().ifNull().failWith(() -> new RuntimeException("Sport not found"))
+                                // on fetch aussi la collection inverse avant modification
                                 .flatMap(sport -> Mutiny.fetch(sport.getPersons())
                                         .replaceWith(sport)
-                                        .map(s -> {
-                                            p.getSports().add(s);
-                                            s.getPersons().add(p);
-                                            return p;
+                                        .map(sportFetched -> {
+                                            person.getSports().add(sportFetched);
+                                            sportFetched.getPersons().add(person);
+                                            return person;
                                         })
                                 )
-                        )
                 )
-                .flatMap(person -> person.persist().replaceWith(person));
+                // persister ET flush pour bien enregistrer la relation
+                .flatMap(person -> person.persistAndFlush().replaceWith(person));
     }
+
 }
