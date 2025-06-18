@@ -1,5 +1,6 @@
 package dev.mikablondo.resource;
 
+import dev.mikablondo.dto.PersonDto;
 import dev.mikablondo.model.Person;
 import dev.mikablondo.service.PersonService;
 import io.smallrye.mutiny.Multi;
@@ -21,7 +22,7 @@ public class PersonResource {
     PersonService personService;
 
     @GET
-    public Uni<List<Person>> list() {
+    public Uni<List<PersonDto>> list() {
         return personService.get();
     }
 

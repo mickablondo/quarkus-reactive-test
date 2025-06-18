@@ -1,5 +1,6 @@
 package dev.mikablondo.service;
 
+import dev.mikablondo.dto.PersonDto;
 import dev.mikablondo.model.Person;
 import dev.mikablondo.model.Sport;
 import dev.mikablondo.repository.PersonRepository;
@@ -23,8 +24,13 @@ public class PersonService {
      *
      * @return a Uni that emits a list of Person entities
      */
-    public Uni<List<Person>> get() {
-        return Person.listAll();
+    public Uni<List<PersonDto>> get() {
+        return Person.<Person>findAll().list()
+                .map(persons ->
+                        persons.stream()
+                                .map(p -> new PersonDto(p.id, p.firstname, p.lastname))
+                                .toList()
+                );
     }
 
     /**
