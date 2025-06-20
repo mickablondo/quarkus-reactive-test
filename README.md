@@ -1,5 +1,3 @@
-# 🚧 Work In Progress 🚧
-
 # Quarkus Reactive Test
 
 This is a reactive REST API project built with [Quarkus](https://quarkus.io/), the Supersonic Subatomic Java framework.  
@@ -10,7 +8,7 @@ It demonstrates how to use **Hibernate Reactive with Panache**, **PostgreSQL**, 
 - Reactive REST endpoints using `quarkus-rest`
 - Non-blocking PostgreSQL access with `quarkus-hibernate-reactive-panache`
 - Hot reload and live coding in dev mode
-- Testcontainers integration (for test/dev environments)
+- Testcontainers integration
 - Gradle build system
 - **True end-to-end streaming API endpoint (`/stream`) delivering newline-delimited JSON (NDJSON), allowing fast and easy processing of large amounts of data as it arrives**
 
