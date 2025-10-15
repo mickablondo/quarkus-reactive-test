@@ -50,4 +50,5 @@ When the application starts, it will automatically create the necessary tables i
   - quarkus-reactive-pg-client
 - PostgreSQL
 - Testcontainers
-- Gradle
+- Gradle  
+
